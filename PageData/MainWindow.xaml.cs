@@ -30,6 +30,12 @@ namespace WifiHostingSystem_WPF
         public  MainWindow()
         {
             InitializeComponent();
+
+            Panel.SetZIndex(MHScontloler, 0);
+            Panel.SetZIndex(NeworkWaiting, 1);
+
+
+
             NetworkInformation.NetworkStatusChanged += WaitingForNetworkConnection;
             NetworkCheker();
 
@@ -39,22 +45,20 @@ namespace WifiHostingSystem_WPF
                 Options = new QrCodeEncodingOptions
                 {
                     CharacterSet = "UTF-8",
-                    Height = 200,
-                    Width = 200
+                    Height = 400,
+                    Width = 400
                 }
             };
         }
 
 
        
-        //ネットワーク初期接続関数(接続からプロファイルとれるまでラグがあるので10秒待つ)
+
         public void WaitingForNetworkConnection(object o ) 
         {
             Task.Delay(10000).Wait();
             Dispatcher.InvokeAsync(() => NetworkCheker() );
         }
-
-        //ネットワークに接続状態判定＆マネージャ握って初期操作するマン
         private void NetworkCheker(){
             connectionProfile = NetworkInformation.GetInternetConnectionProfile();
             if (connectionProfile == null)
@@ -62,38 +66,44 @@ namespace WifiHostingSystem_WPF
                 //MessageBox.Show("owwps1");
                 return;
             }
-            //初期設定
+
             tetheringManager = NetworkOperatorTetheringManager.CreateFromConnectionProfile(connectionProfile);
-            //待機イベント削除
             NetworkInformation.NetworkStatusChanged -= WaitingForNetworkConnection;
-            //ブロッカー削除
+
+
             Window_Grid.Children.Remove(NeworkWaiting);
-            //初期化処理
+            NeworkWaiting.Focus();
+
+            Init();
+
+        }
+
+
+
+        private void Init()
+        {
             //ホットスポット起動と各種イベントの登録
-            if (CheckHotspot(tetheringManager) == false) Dispatcher.InvokeAsync(() => StartHotSpot());
+            //MessageBox.Show("start init");
+            if(CheckHotspot(tetheringManager)==false) Dispatcher.InvokeAsync(() => StartHotSpot());
 
             //イベント登録
             NetworkInformation.NetworkStatusChanged += OnNetworkStatusChanged;
             NetworkInformation.NetworkStatusChanged += MHS_Restarter;
-            //ステータス更新
-            OnNetworkStatusChanged(new Object());
 
+            OnNetworkStatusChanged(new Object());
         }
-      
-        //VD強制再起動装置
+       
+
         private void RebootVD(object sender, RoutedEventArgs e)
         {
-            //PID検索
             string processName = "VirtualDesktop.Streamer";
             var process = Process.GetProcessesByName(processName).FirstOrDefault();
             if (process == null) return;
             else{
                 try
                 {
-                    //再起動用ファイルパス取得
                     string VDpass = process.MainModule.FileName;
-                    process.Kill();//kill
-                    //VD再起動
+                    process.Kill();
                     ProcessStartInfo RestertVD = new ProcessStartInfo
                     {
                         FileName = VDpass,
@@ -105,7 +115,6 @@ namespace WifiHostingSystem_WPF
             }
         }
 
-        //モバイルホットスポット操作用チェックボックス
         private void MobileHotspootActive_Checked(object sender, RoutedEventArgs e)
         {
             if (!MobileHotspootActive.IsEnabled) return;
@@ -146,14 +155,12 @@ namespace WifiHostingSystem_WPF
                 }
             });
 
-            //QRコード生成
             if (string.IsNullOrEmpty(QRContent))
             {
                 //QRCode.Source = new ImageSource(new Uri(`./pic/HeadMono.png", UriKind.Absolute));
                 QRCode.Source = null;
                 return;
             }
-            //QRコード画像変換
             using (var bmp = QRWrrter.Write(QRContent))
             using (var ms = new MemoryStream())
             {
@@ -167,9 +174,7 @@ namespace WifiHostingSystem_WPF
             return;
         }
 
-        //試作　モバイルホットスポット再起動マシーン
         private async void MHS_Restarter(object sender){
-            //ネットにつながってなくてモバイルホットスポットが自動で止まった時再起動する。
             var cpro = NetworkInformation.GetInternetConnectionProfile();
             if (cpro == null && tetheringManager != null)
             {
@@ -182,7 +187,7 @@ namespace WifiHostingSystem_WPF
 
         }
 
-        // デバッグテキスト生成機
+        // テキスト生成機
         private string HotSpotStats(NetworkOperatorTetheringManager TM)
         {
             string HSstats = "Update:" + DateTime.Now.ToString("yy/dd/MM HH:mm.ss.FF")+"\n";
@@ -242,13 +247,11 @@ namespace WifiHostingSystem_WPF
             return HSstats;
         }
 
-        //ホットスポットの動作判定機
         private bool CheckHotspot(NetworkOperatorTetheringManager TM)
         {
             return TM.TetheringOperationalState == TetheringOperationalState.On;
         }
 
-        //簡易チェックボックス操作機
         private void set_Checkbox(CheckBox cbox , Nullable<bool> input)
         {
             cbox.IsEnabled = false;
@@ -284,10 +287,14 @@ namespace WifiHostingSystem_WPF
             }
         }
 
-        //ネットワーク待機状態の手動更新ボタン
         private void ReLoadNetworkStatus_Click(object sender, RoutedEventArgs e)
         {
-            WaitingForNetworkConnection(new object());
+            NetworkCheker();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 

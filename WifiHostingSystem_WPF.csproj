@@ -11,6 +11,7 @@
 	<SupportedOSPlatformVersion>10.0.22000.0</SupportedOSPlatformVersion>
 	<NuGetAuditLevel>low</NuGetAuditLevel>
 	<NeutralLanguage>ja-JP</NeutralLanguage>
+	<ApplicationIcon>pic\WHSLogo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -22,7 +23,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Head Mono - コピー.svg" />
     <None Remove="HeadMono.png" />
+    <None Remove="pic\Head Mono - コピー.svg" />
+    <None Remove="pic\HeadMono.png" />
+    <None Remove="pic\WHSLogo.png" />
+    <None Remove="WHSLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="pic\WHSLogo.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,7 +42,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="HeadMono.png" />
+    <Resource Include="pic\Head Mono - コピー.svg" />
+    <Resource Include="pic\HeadMono.png" />
+    <Resource Include="pic\WHSLogo.png" />
   </ItemGroup>
 
   
