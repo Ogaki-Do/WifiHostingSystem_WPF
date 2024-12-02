@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="WifiHostingSystem_WPF.PageData.WaitingNetworkConnection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WifiHostingSystem_WPF.PageData"
+             mc:Ignorable="d"
+             >
+    <Grid x:Name="NeworkWaiting" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="25*"/>
+        </Grid.RowDefinitions>
+        <Image Source="/pic/HeadMono.png"  Grid.Row="0" />
+        <Viewbox Grid.Row="1">
+            <TextBlock TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" FontSize="20"><Run Text="Waiting for"/><Run Text=" "/><Run/><LineBreak/><Run Text="N"/><Run Text="etwork"/><Run Text=" "/><Run Text="Connection"/><Run Text=" ..."/></TextBlock>
+        </Viewbox>
+        <Viewbox Grid.Row="2">
+            <Button x:Name="ReLoadNetworkStatus" Content="ReLoadNetworkStatus" Click="ReLoadNetworkStatus_Click"  />
+        </Viewbox>
+    </Grid>
+</UserControl>

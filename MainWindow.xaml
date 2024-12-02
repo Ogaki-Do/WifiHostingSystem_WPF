@@ -1,0 +1,51 @@
+﻿<Window x:Class="WifiHostingSystem_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WifiHostingSystem_WPF.PageData"
+        mc:Ignorable="d"
+        Title="WifiHostingSystem_WPF"
+        BorderBrush="Black" 
+        MinHeight="320" MinWidth="400" 
+        Width="607" Height="479" >
+    <Grid x:Name="Window_Grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="88*"/>
+            <ColumnDefinition Width="216*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border x:Name="MessageBox" VerticalAlignment="Center" Grid.ColumnSpan="2" BorderThickness="5" Background="White" BorderBrush="Black"  Grid.Column="1">
+            <Viewbox>
+                <StackPanel>
+                    <TextBlock x:Name="MessageName" Text="error" Margin="10,10,10,10" />
+                    <TextBox x:Name="MessageLoad" IsReadOnly="True" Text="messagdfadsfasfasdfasjdgfjasfkjashkfjdasdfjahsdfjhajkshdfkjdashlfkhaslkjhfdkjasfhkjase" />
+                    <Button Content="OK" Margin="10,10,10,10" VerticalAlignment="Bottom" Click="MessageBoxOk" />
+                </StackPanel>
+            </Viewbox>
+        </Border>
+
+        <Border x:Name="LeftArea" BorderBrush="Black" Grid.ColumnSpan="2" Margin="0,0,0,0"  >
+            <local:WaitingNetworkConnection Loaded="WaitingNetworkConnection_Loaded_1" />
+        </Border>
+
+
+        <TabControl  Grid.Column="2" Grid.ColumnSpan="2" >
+            <TabItem Header="HotSpot" >
+                <local:HotSpotStats Loaded="HotSpotStats_Loaded"></local:HotSpotStats>
+            </TabItem>
+            <TabItem Header="Seting">
+                <local:SetingManu></local:SetingManu>
+            </TabItem>
+            <TabItem Header="Log">
+                <TextBox IsReadOnly="True" />
+            </TabItem>
+        </TabControl>
+
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="WifiHostingSystem_WPF.PageData.QRandShortCut"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WifiHostingSystem_WPF.PageData"
+             mc:Ignorable="d" 
+             d:DesignWidth="200" Height="296">
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="QRCode" MinWidth="200" MinHeight="200" Source="/pic/HeadMono.png" Height="200" VerticalAlignment="Center" />
+            <CheckBox x:Name="MobileHotspootActive" Content="MobileHotspootActive" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="MobileHotspootActive_Checked" Unchecked="MobileHotspootActive_Uncheckd" Height="15" Width="139" Grid.Row="1" Margin="0,25,0,0" />
+            <Button x:Name="VDRebootButton" Content="RebootVD" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Click="RebootVD" Height="20" Width="58" Grid.Row="1"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

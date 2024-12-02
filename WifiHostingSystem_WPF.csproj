@@ -25,6 +25,8 @@
   <ItemGroup>
     <None Remove="Head Mono - コピー.svg" />
     <None Remove="HeadMono.png" />
+    <None Remove="PageData\HeadMono.png" />
+    <None Remove="PageData\SplashScreen1.png" />
     <None Remove="pic\Head Mono - コピー.svg" />
     <None Remove="pic\HeadMono.png" />
     <None Remove="pic\WHSLogo.png" />
@@ -45,6 +47,10 @@
     <Resource Include="pic\Head Mono - コピー.svg" />
     <Resource Include="pic\HeadMono.png" />
     <Resource Include="pic\WHSLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SplashScreen Include="PageData\SplashScreen1.png" />
   </ItemGroup>
 
   

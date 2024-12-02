@@ -20,19 +20,22 @@ namespace WifiHostingSystem_WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    
     public partial class MainWindow : Window
     {
 
-        private ConnectionProfile connectionProfile;
-        private NetworkOperatorTetheringManager tetheringManager;
+        public ConnectionProfile connectionProfile;
+        public NetworkOperatorTetheringManager tetheringManager;
         private ZXing.BarcodeWriter QRWrrter;
         
         public  MainWindow()
         {
             InitializeComponent();
 
-            Panel.SetZIndex(MHScontloler, 0);
-            Panel.SetZIndex(NeworkWaiting, 1);
+            //Panel.SetZIndex(MHScontloler, 0);
+            //Panel.SetZIndex(NeworkWaiting, 1);
 
 
 
@@ -71,8 +74,8 @@ namespace WifiHostingSystem_WPF
             NetworkInformation.NetworkStatusChanged -= WaitingForNetworkConnection;
 
 
-            Window_Grid.Children.Remove(NeworkWaiting);
-            NeworkWaiting.Focus();
+            //Window_Grid.Children.Remove(NeworkWaiting);
+
 
             Init();
 
@@ -117,12 +120,12 @@ namespace WifiHostingSystem_WPF
 
         private void MobileHotspootActive_Checked(object sender, RoutedEventArgs e)
         {
-            if (!MobileHotspootActive.IsEnabled) return;
+            //if (!MobileHotspootActive.IsEnabled) return;
             StartHotSpot();
         }
         private void MobileHotspootActive_Uncheckd(object sender, RoutedEventArgs e)
         {
-            if (!MobileHotspootActive.IsEnabled) return;
+            //if (!MobileHotspootActive.IsEnabled) return;
             StopHotSpot();
         }
 
@@ -135,7 +138,7 @@ namespace WifiHostingSystem_WPF
 
             // ホットスポットの状態を更新
             
-            await Dispatcher.InvokeAsync(() => WiifiStats.Text = HotSpotStats(tetheringManager));
+            //await Dispatcher.InvokeAsync(() => WiifiStats.Text = HotSpotStats(tetheringManager));
 
             //チェックボックス更新
             await Dispatcher.InvokeAsync(() =>
@@ -143,13 +146,13 @@ namespace WifiHostingSystem_WPF
                 switch (tetheringManager.TetheringOperationalState)
                 {
                     case TetheringOperationalState.On:
-                        set_Checkbox(MobileHotspootActive, true);
+                        //set_Checkbox(MobileHotspootActive, true);
                         break;
                     case TetheringOperationalState.Off:
-                        set_Checkbox(MobileHotspootActive, false);
+                        //set_Checkbox(MobileHotspootActive, false);
                         break;
                     default:
-                        set_Checkbox(MobileHotspootActive, null);
+                        //set_Checkbox(MobileHotspootActive, null);
                         break;
 
                 }
@@ -158,7 +161,7 @@ namespace WifiHostingSystem_WPF
             if (string.IsNullOrEmpty(QRContent))
             {
                 //QRCode.Source = new ImageSource(new Uri(`./pic/HeadMono.png", UriKind.Absolute));
-                QRCode.Source = null;
+                //QRCode.Source = null;
                 return;
             }
             using (var bmp = QRWrrter.Write(QRContent))
@@ -169,7 +172,7 @@ namespace WifiHostingSystem_WPF
                 // そのままではWPFでは表示できないので、
                 // WPFで扱えるImageSourceに変換する必要がある
                 var source = BitmapFrame.Create(ms, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                await Dispatcher.InvokeAsync(() => QRCode.Source = source);
+                //await Dispatcher.InvokeAsync(() => QRCode.Source = source);
             }
             return;
         }
@@ -293,6 +296,41 @@ namespace WifiHostingSystem_WPF
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void WaitingNetworkConnection_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void HotSpotStatsdata_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void HotSpotStats_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void WaitingNetworkConnection_Loaded_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MessageBoxOk(object sender, MessageBoxButton button)
         {
 
         }
